@@ -1,5 +1,6 @@
 const divContent = document.querySelector('#content')
 const divModal = document.querySelector('#modal')
+const templatingMovieNotFound =`<h1 style="margin: auto;">Movie Not Found ...</h1>`
 
 //================================ AJAX ================================
 async function fetchMoviesData(title){
@@ -22,10 +23,15 @@ document.querySelector('#input-keyword').addEventListener('keyup', function(even
         divContent.innerHTML = ''
         divModal.innerHTML = ''
         fetchMoviesData(this.value).then(response => {
-            response.Search.map(data => {
-                divContent.insertAdjacentHTML("beforeend", templatingCardMovie(data))
-                divModal.insertAdjacentHTML("beforeend", templatingModalMovie(data))
-            })
+            if(response.Response == "True"){
+                response.Search.map(data => {
+                    divContent.insertAdjacentHTML("beforeend", templatingCardMovie(data))
+                    divModal.insertAdjacentHTML("beforeend", templatingModalMovie(data))
+                })
+            } else {
+                divContent.insertAdjacentHTML("beforeend", templatingMovieNotFound )
+            }
+            
         })
     }  
 })
@@ -36,10 +42,15 @@ document.querySelector('#button-search').addEventListener('click', function(even
     divModal.innerHTML = ''
     keyword = document.querySelector('#input-keyword').value
     fetchMoviesData(keyword).then(response => {
-        response.Search.map(data => {
-            divContent.insertAdjacentHTML("beforeend", templatingCardMovie(data))
-            divModal.insertAdjacentHTML("beforeend", templatingModalMovie(data))
-        })
+        if(response.Response == "True"){
+            response.Search.map(data => {
+                divContent.insertAdjacentHTML("beforeend", templatingCardMovie(data))
+                divModal.insertAdjacentHTML("beforeend", templatingModalMovie(data))
+            })
+        } else {
+            divContent.insertAdjacentHTML("beforeend", templatingMovieNotFound )
+        }
+        
     })
 })
 
