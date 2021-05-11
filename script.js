@@ -18,9 +18,9 @@ async function fetchMovieDetail(imdbId){
 
 //================================ ENTER INPUT SEARCH ================================
 document.querySelector('#input-keyword').addEventListener('keyup', function(event){
-    let html = '';
     if(event.key === "Enter"){
         divContent.innerHTML = ''
+        divModal.innerHTML = ''
         fetchMoviesData(this.value).then(response => {
             response.Search.map(data => {
                 divContent.insertAdjacentHTML("beforeend", templatingCardMovie(data))
@@ -28,6 +28,19 @@ document.querySelector('#input-keyword').addEventListener('keyup', function(even
             })
         })
     }  
+})
+
+//================================ CLICK SEARCH BUTTON ================================
+document.querySelector('#button-search').addEventListener('click', function(event){
+    divContent.innerHTML = ''
+    divModal.innerHTML = ''
+    keyword = document.querySelector('#input-keyword').value
+    fetchMoviesData(keyword).then(response => {
+        response.Search.map(data => {
+            divContent.insertAdjacentHTML("beforeend", templatingCardMovie(data))
+            divModal.insertAdjacentHTML("beforeend", templatingModalMovie(data))
+        })
+    })
 })
 
 
