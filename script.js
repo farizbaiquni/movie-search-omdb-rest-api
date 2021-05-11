@@ -63,7 +63,7 @@ document.querySelector('#button-search').addEventListener('click', function(even
 //================================ CLICK DETAIL BUTTON ================================
 function clickDetailButton(element){
     movieId = element.getAttribute("data-imdbId")
-    if(document.querySelector(`#contentModal${movieId} > .modal-content > .content-detail`) == null){
+    if(document.querySelector(`#contentModal${movieId} > .modal-content > .modal-body > .content-detail`) == null){
         fetchMovieDetail(movieId).then(data => { 
             document.querySelector(`#contentModal${movieId} > .modal-content`).innerHTML = ''
             document.querySelector(`#contentModal${data.imdbID}`).insertAdjacentHTML('beforeend', templatingModalMovieContent(data))
